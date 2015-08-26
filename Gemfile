@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '1.8.7'
+ruby '2.2.1' rescue nil
 
 gem 'sinatra'
 gem 'rspec-sinatra'
