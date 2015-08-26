@@ -35,16 +35,6 @@ feature 'the player can begin a game' do
     expect(page).to have_selector('#Play')
   end
 
-  scenario 'player is told to enter valid item' do
-    visit '/'
-    fill_in('name', with: 'Kate')
-    click_on('Submit name')
-    click_on('Begin new game')
-    fill_in('weapon', with: 'banana')
-    click_on('Play')
-    expect(page).to have_content 'Please choose either rock, paper or scissors'
-  end
-
 end
 
 feature 'player can win or lose and start a new game' do
@@ -53,29 +43,32 @@ feature 'player can win or lose and start a new game' do
     fill_in('name', with: 'Kate')
     click_on('Submit name')
     click_on('Begin new game')
+    #allow any instance of Opponent to receive weapon and return rock
+    allow_any_instance_of(Opponent).to receive(:weapon).and_return("scissors")
   end
 
-  xscenario 'player is told if they have won' do
-    fill_in('weapon', with: 'rock')
-    click_on('Play')
+  scenario 'player is told if they have won' do
+    click_on('rock')
     expect(page).to have_content 'rock beats scissors, you win!'
   end
 
-  xscenario 'player is told if they have lost' do
-    fill_in('weapon', with: 'paper')
-    click_on('Play')
+  scenario 'player is told if they have lost' do
+    click_on('paper')
     expect(page).to have_content 'scissors beats paper, you lose :('
   end
 
+  scenario 'player is told if they have drawn' do
+    click_on('scissors')
+    expect(page).to have_content "It's a draw!"
+  end
+
   scenario 'player can click to play again' do
-    fill_in('weapon', with: 'rock')
-    click_on('Play')
+    click_on('rock')
     expect(page).to have_selector('#play_again')
   end
 
   scenario 'player is taken back to the choose page if they click play again' do
-    fill_in('weapon', with: 'rock')
-    click_on('Play')
+    click_on('rock')
     click_on('Play again?')
     expect(page).to have_content 'Kate, when you\'re ready make your choice...'
   end

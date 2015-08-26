@@ -24,23 +24,11 @@ class Game
 
   def winner?
     if @opponent.weapon == 'rock'
-      if @player.weapon == 'paper'
-        true
-      else
-        false
-      end
+      @player.weapon == 'paper'
     elsif @opponent.weapon == 'paper'
-      if @player.weapon == 'scissors'
-        true
-      else
-        false
-      end
+      @player.weapon == 'scissors'
     elsif @opponent.weapon == 'scissors'
-      if @player.weapon == 'rock'
-        true
-      else
-        false
-      end
+      @player.weapon == 'rock'
     end
   end
 

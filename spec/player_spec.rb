@@ -7,7 +7,8 @@ describe Player do
     it { is_expected.to respond_to(:choose).with(1).arguments }
 
     it 'returns choice if the player makes a valid choice' do
-      expect(subject.choose('rock')).to eq 'rock'
+      subject.choose('rock')
+      expect(subject.weapon).to eq 'rock'
     end
 
     it 'raises error message if choice is invalid' do
